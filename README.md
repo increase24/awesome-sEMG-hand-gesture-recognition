@@ -2,7 +2,7 @@
 ![Python 3.7](https://img.shields.io/badge/python-3.7-green.svg?style=plastic)
 ![PyTorch](https://img.shields.io/badge/PyTorch%20-%23EE4C2C.svg?style=plastic)
 
-This repository provide some unofficial pytorch implementations of awesome works for surface electromyography (sEMG) based hand gesture recognition.
+This repository provides some unofficial pytorch implementations of awesome works for surface electromyography (sEMG) based hand gesture recognition.
 
 Please star this repo if you find our work is helpful for you.
 
@@ -16,7 +16,7 @@ The code is developed using python 3.7 on Ubuntu 20.04. NVIDIA GPU is needed.
 
 ## Data preparing
 The experiment are taken on the [Ninapro dataset](http://ninaweb.hevs.ch/). The first sub-dataset DB1 and second sub-dataset DB2 are ultilized. 
-1. Firstly download the [Ninapro DB1](http://ninaweb.hevs.ch/data1) and [Ninapro DB2](http://ninaweb.hevs.ch/data2) datasets.
+1. Firstly download the [Ninapro DB1](http://ninaweb.hevs.ch/data1) and [Ninapro DB2](http://ninaweb.hevs.ch/data2) datasets. And then extract data files from the zip files, we provide two jupyter notebooks [extractFile_db1](https://github.com/increase24/Ninapro-dataset-processing/blob/master/processing/extractFile_db1.ipynb) / [extractFile_db2](https://github.com/increase24/Ninapro-dataset-processing/blob/master/processing/extractFile_db2.ipynb) for extracting DB1 / DB2 respectively.
 Your directory tree should look like this: 
 
 ```
@@ -39,9 +39,26 @@ ${ROOT}/data/ninapro
         └── S40_E3_A1.mat
 ```
 
-2. Then run the following code to obtain the json file for experiment config:
+2. We provide two jupyter notebook scripts [process_db1](https://github.com/increase24/Ninapro-dataset-processing/blob/master/processing/process_db1.ipynb) / [process_db2](https://github.com/increase24/Ninapro-dataset-processing/blob/master/processing/process_db2.ipynb) for convert the mat files to txt files.
+After convertion, your directory tree should look like this: 
 ```
-python ./experiments/CinC17/build_dataset.py
+${ROOT}/data/ninapro
+├── db1_processed
+|   |—— s1
+|   |—— s2
+|   |   ...
+|   └── s27
+|       |—— emg.txt
+|       |—— rerepetition.txt
+|       └── restimulus.txt
+└── db2_processed
+    |—— DB2_s1
+    |—— DB2_s2
+    |   ...
+    └── DB2_s40
+        |—— emg.txt
+        |—— rerepetition.txt
+        └── restimulus.txt
 ```
 
 ## Quick Start
