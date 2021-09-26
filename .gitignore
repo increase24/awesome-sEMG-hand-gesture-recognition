@@ -1,0 +1,21 @@
+__pycache__
+*.pyc
+
+# outputs: logs, trained models
+outputs/
+# dataset
+data/
+*.tar
+# output files
+*.out
+
+# notebook
+notebooks/
+eda
+*.ipynb
+
+# vscode
+.vscode
+
+# PBS
+PBS
