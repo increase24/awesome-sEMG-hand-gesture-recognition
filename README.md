@@ -7,7 +7,7 @@ This repository provides some unofficial pytorch implementations of awesome work
 Please star this repo if you find our work is helpful for you.
 
 * Network architectures to be reproduced
-  * [ ] [Multi-stream CNN (WeiNet)](https://www.sciencedirect.com/science/article/abs/pii/S0167865517304439)
+  * [x] [Multi-stream CNN (WeiNet)](https://www.sciencedirect.com/science/article/abs/pii/S0167865517304439)
   * [ ] [XceptionTime](https://arxiv.org/abs/1911.03803)
   * [ ] [BiTCN](https://link.springer.com/chapter/10.1007/978-981-33-4932-2_30)
 

@@ -30,6 +30,10 @@ def main():
     args = parse_args()
     with open(args.config) as cfg_file:
         cfg = CN.load_cfg(cfg_file)
+        opts = [
+            'ModelConfig.model_name', args.model
+            ]
+        cfg.merge_from_list(opts)
         print('Successfully loading the config file....')
     ModelConfig = cfg.ModelConfig
     DataConfig = cfg.DatasetConfig

@@ -1,0 +1,8 @@
+model_name: 'BiTCN'
+in_channels: 10
+num_filters: [16,32,64,64]
+kernel_sizes: [3,3,3,3]
+dilations: [1,1,2,2]
+skip_types: ["Res-connect","Res-connect","Res-connect","Res-connect"] # ["SE-Module","SE-Module","Res-connect","Res-connect"]
+dropout_rate: 0.5
+num_classes: 52

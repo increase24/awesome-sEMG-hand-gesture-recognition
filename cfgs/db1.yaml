@@ -7,13 +7,14 @@ ModelConfig:
     MSCNN: "./cfgs/MSCNN_db1.yaml"
     XceptionTime: "./cfgs/XceptionTime_db1.yaml"
     MKCNN: "./cfgs/MKCNN_db1.yaml"
+    BiTCN: "./cfgs/BiTCN_db1.yaml"
 
 #############################################################
 # 2. Optimizer & Train Configs
 #############################################################
 OptimizerConfig:
   epoches: 50
-  lr: 0.001
+  lr: 0.01
   loss: 'CrossEntropyLoss'
   use_unbalance_weight: False
 
