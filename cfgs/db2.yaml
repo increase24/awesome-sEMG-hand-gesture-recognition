@@ -1,0 +1,36 @@
+#############################################################
+# 1. Model Define Configs
+#############################################################
+ModelConfig:
+  model_name: "MKCNN"
+  model_arch: 
+    MSCNN: "./cfgs/MSCNN_db2.yaml"
+    XceptionTime: "./cfgs/XceptionTime_db2.yaml"
+    MKCNN: "./cfgs/MKCNN_db2.yaml"
+
+#############################################################
+# 2. Optimizer & Train Configs
+#############################################################
+OptimizerConfig:
+  epoches: 50
+  lr: 0.001
+  loss: 'CrossEntropyLoss'
+  use_unbalance_weight: False
+
+#############################################################
+# 3. DataSet Config
+#############################################################  
+DatasetConfig:
+  dataset: 'db2'
+  batch_size: 128  
+  num_workers: 6
+  seq_lens: [200] # sample rate: 2000Hz -> 1 dot: 0.5ms
+  step: 50
+  root_path: 'data/ninapro/db2_processed/'
+
+#############################################################
+# 4. Output Config
+#############################################################  
+OutputConfig:
+  path_weights: './outputs/weights/'
+  path_results: './outputs/results/'

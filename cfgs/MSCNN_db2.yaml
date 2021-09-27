@@ -1,0 +1,12 @@
+model_name: 'MSCNN'
+num_stream: 12
+filter1: 32
+filter2: 32
+filter3: 64
+filter4: 64
+featDim_concat: 76800
+fc1: 256
+fc2: 128
+fc3: 64
+dropout_rate: 0.5
+num_classes: 49

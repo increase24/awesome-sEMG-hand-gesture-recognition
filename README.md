@@ -69,9 +69,9 @@ ${ROOT}/data/ninapro
    pip install -r requirements.txt
    ```
 ### Training
-* Train net
+* Train network multi-stream CNN on Ninapro DB1 dataset:
   ```
-  
+  sh scripts/train_db1_MSCNN.sh
   ```
 ### Evaluation
 * validate net
@@ -80,6 +80,13 @@ ${ROOT}/data/ninapro
   ```
 
 ## Results Demonstration
+The comparison between reported accurary in paper and reprodecud accuracy are demonstrated as Table.1.
+|  Network architectur               |   Reported accurary in paper   |   Reprodecud accuracy |
+|------------------------------------|:-----:|:-----:|
+| Multi-stream CNN             | 0.850 |  |
+| XceptionTime                 |   |   |
+| BiTCN                        |   |   | 
+|                              |   |   | 
 
 ## Contact
 If you have any questions, feel free to contact me through jia.zeng@sjtu.edu.cn or Github issues.

@@ -1,0 +1,1 @@
+python ./tools/train.py --config "./cfgs/db1.yaml" --model "MSCNN"
