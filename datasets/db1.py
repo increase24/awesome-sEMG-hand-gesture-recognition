@@ -25,9 +25,13 @@ def get_dataloader_db1(cfg, path_s):
     for _col in range(emgs.shape[1]):
         emgs[:,_col] = signal.filtfilt(b, a, emgs[:,_col])
     
-    # u-law normalization
+    # # u-law normalization
     u = 256
     emgs = np.sign(emgs) * np.log(1+u*abs(emgs))/np.log(1+u)
+
+    # min-max normalization
+    # _norm = max(abs(emgs.max()), abs(emgs.min()))
+    # emgs = emgs/_norm
     
     # segmentation of training and testing samples
     length_dots = len(labels)

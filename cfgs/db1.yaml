@@ -23,7 +23,7 @@ OptimizerConfig:
 #############################################################  
 DatasetConfig:
   dataset: 'db1'
-  batch_size: 128  
+  batch_size: 32  
   num_workers: 6
   seq_lens: [20] # sample rate: 100Hz -> 1 dot: 10ms
   step: 1

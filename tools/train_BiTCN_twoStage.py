@@ -64,7 +64,7 @@ def main():
         # define criterion, optimizer, scheduler
         OptimizerConfig = cfg.OptimizerConfig
         criterion = nn.CrossEntropyLoss().to(device)
-        optimizer = torch.optim.AdamW(model.parameters(), lr=OptimizerConfig.lr)
+        optimizer = torch.optim.Adam(model.parameters(), lr=OptimizerConfig.lr)
         #scheduler = torch.optim.lr_scheduler.MultiStepLR(optimizer, milestones=[20,40,60], gamma=0.5)
         scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer, mode='max',factor=0.5,patience=5,eps=1e-08)
         # start training
@@ -87,11 +87,11 @@ def main():
                 save_checkpoint({
                     'epoch': epoch,
                     'arch': ModelConfig['model_name'],
-                    'state_dict': trainer.model.state_dict(),
+                    'state_dict': trainer.model.feat_net.state_dict(),
                     'best_acc': trainer.bst_acc}, 
                     os.path.join(OutputConfig.path_weights, ModelConfig.model_name),
                     ModelConfig.model_name+f'_{DataConfig.dataset}_s{idx_subject}_p'+'.pth.tar')
-            scheduler.step(trainer.bst_acc)
+            scheduler.step(valid_acc)
         results_p[idx_subject] = trainer.bst_acc
         save_result(results_p, os.path.join(OutputConfig.path_results, ModelConfig.model_name), \
             f'{ModelConfig.model_name}_{DataConfig.dataset}_bs{DataConfig.batch_size}_p.txt')
@@ -103,7 +103,7 @@ def main():
         # define criterion, optimizer, scheduler
         OptimizerConfig = cfg.OptimizerConfig
         criterion = nn.CrossEntropyLoss().to(device)
-        optimizer = torch.optim.AdamW(model.parameters(), lr=OptimizerConfig.lr)
+        optimizer = torch.optim.Adam(model.parameters(), lr=OptimizerConfig.lr)
         scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer, mode='max',factor=0.5,patience=5,eps=1e-08)
         # start training
         num_epoches = int(OptimizerConfig.epoches)
@@ -125,31 +125,31 @@ def main():
                 save_checkpoint({
                     'epoch': epoch,
                     'arch': ModelConfig['model_name'],
-                    'state_dict': trainer.model.state_dict(),
+                    'state_dict': trainer.model.feat_net.state_dict(),
                     'best_acc': trainer.bst_acc}, 
                     os.path.join(OutputConfig.path_weights, ModelConfig.model_name),
-                    ModelConfig.model_name+f'_{DataConfig.dataset}_s{idx_subject}_p'+'.pth.tar')
-            scheduler.step(trainer.bst_acc)
+                    ModelConfig.model_name+f'_{DataConfig.dataset}_s{idx_subject}_r'+'.pth.tar')
+            scheduler.step(valid_acc)
         results_r[idx_subject] = trainer.bst_acc
         save_result(results_r, os.path.join(OutputConfig.path_results, ModelConfig.model_name), \
-            f'{ModelConfig.model_name}_{DataConfig.dataset}_bs{DataConfig.batch_size}_p.txt')
+            f'{ModelConfig.model_name}_{DataConfig.dataset}_bs{DataConfig.batch_size}_r.txt')
 
         # stage 2 (bidirectional)
         model = BiTCN(cfg_model)
-        model.apply(weight_init)
+        #model.apply(weight_init)
         model.to(device)
         # load checkpoint
         OutputConfig = cfg.OutputConfig
         checkpoint_p = torch.load(os.path.join(OutputConfig.path_weights, ModelConfig.model_name, 
                 ModelConfig.model_name+f'_{DataConfig.dataset}_s{idx_subject}_p.pth.tar'))
-        checkpoint_r = torch.load(os.path.join(OutputConfig.dir_wepath_weightsights, ModelConfig.model_name, 
+        checkpoint_r = torch.load(os.path.join(OutputConfig.path_weights, ModelConfig.model_name, 
                 ModelConfig.model_name+f'_{DataConfig.dataset}_s{idx_subject}_r.pth.tar'))
         model.tcn_positive.load_state_dict(checkpoint_p['state_dict'])
         model.tcn_reverse.load_state_dict(checkpoint_r['state_dict'])
         # define criterion, optimizer, scheduler
         OptimizerConfig = cfg.OptimizerConfig
         criterion = nn.CrossEntropyLoss().to(device)
-        optimizer = torch.optim.AdamW(model.parameters(), lr=OptimizerConfig.lr/10)
+        optimizer = torch.optim.Adam(model.parameters(), lr=OptimizerConfig.lr/10)
         scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer, mode='max',factor=0.5,patience=5,eps=1e-08)
         # start training
         num_epoches = int(OptimizerConfig.epoches)
@@ -175,7 +175,7 @@ def main():
                     'best_acc': trainer.bst_acc}, 
                     os.path.join(OutputConfig.path_weights, ModelConfig.model_name),
                     ModelConfig.model_name+f'_{DataConfig.dataset}_s{idx_subject}_bi'+'.pth.tar')
-            scheduler.step(trainer.bst_acc)
+            scheduler.step(valid_acc)
         results_bi[idx_subject] = trainer.bst_acc
         save_result(results_r, os.path.join(OutputConfig.path_results, ModelConfig.model_name), \
             f'{ModelConfig.model_name}_{DataConfig.dataset}_bs{DataConfig.batch_size}_bi.txt')
